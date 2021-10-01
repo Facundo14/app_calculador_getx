@@ -1,149 +1,138 @@
 import 'package:flutter/material.dart';
-import 'package:calculadora/widgets/calc_button.dart';
-import 'package:calculadora/widgets/line_separator.dart';
-import 'package:calculadora/widgets/main_result.dart';
-import 'package:calculadora/widgets/sub_result.dart';
+import 'package:get/get.dart';
 
+import 'package:calculadora/controllers/calculator_controller.dart';
+
+import 'package:calculadora/widgets/calc_button.dart';
+import 'package:calculadora/widgets/math_results.dart';
 
 class CalculatorScreen extends StatelessWidget {
-
+  final calcutlatorCtrl = Get.put(CalculatorController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          margin: EdgeInsets.symmetric( horizontal: 10 ),
-          child: Column(
-            children: [
-              
-              Expanded(
-                child: Container(),
-              ),
-
-              SubResult( text: '1000' ),
-              SubResult( text: 'X' ),
-              SubResult( text: '1000' ),
-              LineSeparator(),
-              MainResultText( text: '2000' ),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CalculatorButton( 
-                    text: 'AC',
-                    bgColor: Color(0xffA5A5A5 ),
-                    onPressed: () => print('AC'),
-                  ),
-                  CalculatorButton( 
-                    text: '+/-',
-                    bgColor: Color(0xffA5A5A5 ),
-                    onPressed: () => print('+/-'),
-                  ),
-                  CalculatorButton( 
-                    text: 'del',
-                    bgColor: Color(0xffA5A5A5 ),
-                    onPressed: () => print('del'),
-                  ),
-                  CalculatorButton( 
-                    text: '/',
-                    bgColor: Color(0xffF0A23B ),
-                    onPressed: () => print('/'),
-                  ),
-                ],
-              ),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CalculatorButton( 
-                    text: '7',
-                    onPressed: () => print('7'),
-                  ),
-                  CalculatorButton( 
-                    text: '8',
-                    onPressed: () => print('8'),
-                  ),
-                  CalculatorButton( 
-                    text: '9',
-                    onPressed: () => print('9'),
-                  ),
-                  CalculatorButton( 
-                    text: 'X',
-                    bgColor: Color(0xffF0A23B ),
-                    onPressed: () => print('X'),
-                  ),
-                ],
-              ),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CalculatorButton( 
-                    text: '4', 
-                    onPressed: () => print('4'),
-                  ),
-                  CalculatorButton( 
-                    text: '5', 
-                    onPressed: () => print('5'),
-                  ),
-                  CalculatorButton( 
-                    text: '6', 
-                    onPressed: () => print('6'),
-                  ),
-                  CalculatorButton( 
-                    text: '-',
-                    bgColor: Color(0xffF0A23B ),
-                    onPressed: () => print('-'),
-                  ),
-                ],
-              ),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CalculatorButton( 
-                    text: '1', 
-                    onPressed: () => print('1'),
-                  ),
-                  CalculatorButton( 
-                    text: '2', 
-                    onPressed: () => print('2'),
-                  ),
-                  CalculatorButton( 
-                    text: '3', 
-                    onPressed: () => print('3'),
-                  ),
-                  CalculatorButton(
-                    text: '+',  
-                    bgColor: Color(0xffF0A23B ),
-                    onPressed: () => print('+'),
-                  ),
-                ],
-              ),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CalculatorButton( 
-                    text: '0', 
-                    big: true,
-                    onPressed: () => print('0'),
-                  ),
-                  CalculatorButton( 
-                    text: '.', 
-                    onPressed: () => print('.'),
-                  ),
-                  CalculatorButton( 
-                    text: '=',
-                    bgColor: Color(0xffF0A23B ),
-                    onPressed: () => print('='),
-                  ),
-                ],
-              ),
-            ],
-          ),
+        body: SafeArea(
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(),
+            ),
+            MathResults(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CalculatorButton(
+                  text: 'AC',
+                  bgColor: Color(0xffA5A5A5),
+                  onPressed: () => calcutlatorCtrl.resetAll(),
+                ),
+                CalculatorButton(
+                  text: '+/-',
+                  bgColor: Color(0xffA5A5A5),
+                  onPressed: () => calcutlatorCtrl.changeNegativePositive(),
+                ),
+                CalculatorButton(
+                  text: 'del',
+                  bgColor: Color(0xffA5A5A5),
+                  onPressed: () => calcutlatorCtrl.deleteLastEntry(),
+                ),
+                CalculatorButton(
+                  text: '/',
+                  bgColor: Color(0xffF0A23B),
+                  onPressed: () => calcutlatorCtrl.selectOperation('/'),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CalculatorButton(
+                  text: '7',
+                  onPressed: () => calcutlatorCtrl.addNumber('7'),
+                ),
+                CalculatorButton(
+                  text: '8',
+                  onPressed: () => calcutlatorCtrl.addNumber('8'),
+                ),
+                CalculatorButton(
+                  text: '9',
+                  onPressed: () => calcutlatorCtrl.addNumber('9'),
+                ),
+                CalculatorButton(
+                  text: 'X',
+                  bgColor: Color(0xffF0A23B),
+                  onPressed: () => calcutlatorCtrl.selectOperation('X'),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CalculatorButton(
+                  text: '4',
+                  onPressed: () => calcutlatorCtrl.addNumber('4'),
+                ),
+                CalculatorButton(
+                  text: '5',
+                  onPressed: () => calcutlatorCtrl.addNumber('5'),
+                ),
+                CalculatorButton(
+                  text: '6',
+                  onPressed: () => calcutlatorCtrl.addNumber('6'),
+                ),
+                CalculatorButton(
+                  text: '-',
+                  bgColor: Color(0xffF0A23B),
+                  onPressed: () => calcutlatorCtrl.selectOperation('-'),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CalculatorButton(
+                  text: '1',
+                  onPressed: () => calcutlatorCtrl.addNumber('1'),
+                ),
+                CalculatorButton(
+                  text: '2',
+                  onPressed: () => calcutlatorCtrl.addNumber('2'),
+                ),
+                CalculatorButton(
+                  text: '3',
+                  onPressed: () => calcutlatorCtrl.addNumber('3'),
+                ),
+                CalculatorButton(
+                  text: '+',
+                  bgColor: Color(0xffF0A23B),
+                  onPressed: () => calcutlatorCtrl.selectOperation('+'),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CalculatorButton(
+                  text: '0',
+                  big: true,
+                  onPressed: () => calcutlatorCtrl.addNumber('0'),
+                ),
+                CalculatorButton(
+                  text: '.',
+                  onPressed: () => calcutlatorCtrl.addDecimalPoint(),
+                ),
+                CalculatorButton(
+                  text: '=',
+                  bgColor: Color(0xffF0A23B),
+                  onPressed: () => calcutlatorCtrl.calculateResult(),
+                ),
+              ],
+            ),
+          ],
         ),
-      )
-   );
+      ),
+    ));
   }
 }
